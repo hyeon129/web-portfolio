@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>포트폴리오 - 자기소개</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,10 +16,12 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #111111;
             overflow-x: hidden;
+            background: #ffffff;
+            min-height: 100vh;
         }
 
         /* Header */
@@ -27,8 +32,9 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 0.9rem 1.5rem;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .nav {
@@ -40,8 +46,9 @@
         }
 
         .nav-left {
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #111111;
         }
 
         .nav-right {
@@ -51,12 +58,35 @@
 
         .nav-right a {
             text-decoration: none;
-            color: #333;
-            transition: color 0.3s ease;
+            color: #111111;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-right a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-right a:hover::before {
+            left: 100%;
         }
 
         .nav-right a:hover {
-            color: #007bff;
+            color: #111111;
+            background: rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
         }
 
         /* Main Container */
@@ -78,26 +108,30 @@
         }
 
         .image-placeholder {
-            background: #f0f0f0;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 2rem;
             text-align: center;
             min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
         }
 
         .image-placeholder:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
 
         .image-placeholder p {
-            color: #666;
-            font-size: 1.1rem;
+            color: #ffffff;
+            font-size: 1.2rem;
             line-height: 1.8;
+            font-weight: 300;
         }
 
         .intro-text {
@@ -105,29 +139,44 @@
         }
 
         .intro-text h1 {
-            font-size: 2.5rem;
+            font-weight: 800;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #007bff;
+            color: #111111;
+            line-height: 1.2;
         }
 
         .intro-text p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            color: #333333;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            line-height: 1.8;
         }
 
         .section-divider {
-            height: 2px;
-            background: linear-gradient(90deg, #007bff, #00d4ff);
-            margin: 2rem 0;
-            border-radius: 1px;
+            /* display: none; */
         }
 
         .section-title {
             text-align: center;
-            font-size: 1.5rem;
-            color: #333;
-            margin: 2rem 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111111;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #111111, #555555);
+            border-radius: 2px;
         }
 
         /* Section 2: Experiences & Skills */
@@ -156,30 +205,41 @@
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: #007bff;
+            width: 4px;
+            background: linear-gradient(180deg, #ffffff, #f0f8ff, #ffffff);
             transform: translateX(-50%);
+            border-radius: 2px;
         }
 
         .timeline-item {
             position: relative;
             margin: 2rem 0;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -10px;
+            left: -15px;
             top: 50%;
-            width: 20px;
-            height: 20px;
-            background: #007bff;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ffffff, #f0f8ff);
             border-radius: 50%;
             transform: translateY(-50%);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .timeline-item:nth-child(even) {
@@ -188,7 +248,7 @@
 
         .timeline-item:nth-child(even)::before {
             left: auto;
-            right: -10px;
+            right: -15px;
         }
 
         .skills {
@@ -197,10 +257,18 @@
 
         .skill-item {
             margin: 1.5rem 0;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         .skill-header {
@@ -504,8 +572,24 @@
 
         /* Custom cursor */
         body { cursor:none; }
-        .custom-cursor { position:fixed; width:20px; height:20px; background:#007bff; border-radius:50%; pointer-events:none; z-index:9999; transition:transform .1s ease; mix-blend-mode:difference; }
-        .custom-cursor.hover { transform:scale(2); background:#00d4ff; }
+        .custom-cursor { 
+            position:fixed; 
+            width:18px; 
+            height:18px; 
+            background: #111111; 
+            border-radius:50%; 
+            pointer-events:none; 
+            z-index:9999; 
+            transition:none; 
+            mix-blend-mode:normal; 
+            box-shadow: none;
+            transform: translate(-50%, -50%);
+        }
+        .custom-cursor.hover { 
+            width:24px; 
+            height:24px; 
+            background:#333333;
+        }
 
         /* Scroll trigger */
         .scroll-animate { transition: all .8s ease; }
@@ -556,12 +640,12 @@
             </div>
             <div class="intro-text fade-in scroll-animate from-right">
                 <h1>자기소개</h1>
-                <p>안녕하세요! 저는 창의적이고 열정적인 웹 개발자입니다.</p>
-                <p>사용자 경험을 중요시하며, 아름답고 기능적인 웹사이트를 만드는 것을 좋아합니다.</p>
-                <p>새로운 기술을 배우고 도전하는 것을 즐기며, 항상 더 나은 솔루션을 찾아 노력합니다.</p>
+                <p>안녕하세요! 사용자를 이해하고, 시각적으로<br> 설득하는 디자이너입니다.</p>
+                <p>사용자 경험을 중요시하며, 아름답고 기능적인<br> 웹사이트를 만드는 것을 좋아합니다.</p>
+                <p>새로운 기술을 배우고 도전하는 것을 즐기며,<br> 항상 더 나은 솔루션을 찾아 노력합니다.</p>
             </div>
             <div class="section-divider"></div>
-            <div class="section-title fade-in scroll-animate from-bottom">7_UX 프레임워크_사용자 인터뷰</div>
+            <div class="section-title fade-in scroll-animate from-bottom"></div>
         </section>
 
         <!-- Section 2: Experiences & Skills -->
@@ -644,7 +728,7 @@
                 </div>
             </div>
             <div class="section-divider"></div>
-            <div class="section-title fade-in scroll-animate rotate-in">7_UX 프레임워크_사용자 인터뷰</div>
+            <div class="section-title fade-in scroll-animate rotate-in"></div>
         </section>
 
         <!-- Section 3: Contact -->
@@ -668,7 +752,7 @@
                 </div>
                 <div class="contact-info fade-in scroll-animate from-right">
                     <h3>Don't hesitate to contact us</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Were always happy to answer your questions and provide the support you need.</p>
                     <div class="contact-cards">
                         <div class="contact-card">
                             <i class="fas fa-map-marker-alt"></i>
@@ -678,17 +762,17 @@
                         <div class="contact-card">
                             <i class="fas fa-phone"></i>
                             <h4>Phone</h4>
-                            <p>(021) 071 444 00)</p>
+                            <p>(+82) 010-7287-8786</p>
                         </div>
                         <div class="contact-card">
                             <i class="fas fa-clock"></i>
-                            <h4>Work Hours</h4>
-                            <p>Everyday 09 am - 07 pm</p>
+                            <h4>Available Time</h4>
+                            <p>Everyday 09am - 09 pm</p>
                         </div>
                         <div class="contact-card">
                             <i class="fas fa-envelope"></i>
                             <h4>Email</h4>
-                            <p>shocaro@support.com</p>
+                            <p>parkdo129@gmail.com</p>
                         </div>
                     </div>
                     <div class="social-media">
@@ -855,8 +939,7 @@
             const cursor = document.getElementById('customCursor');
             if (!cursor) return;
             document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX - 10 + 'px';
-                cursor.style.top = e.clientY - 10 + 'px';
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
             });
             const interactive = document.querySelectorAll('a, button, .skill-item, .contact-card, .social-icon, .timeline-item');
             interactive.forEach(el => {

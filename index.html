@@ -141,9 +141,27 @@
       z-index: 1;
     }
 
-    .card1 { background-image: url(./images/BG/bg_hogwarts.jpg); }
-    .card2 { background-image: url(./images/BG/dark_city.jpg); }
-    .card3 { background-image: url(./images/BG/web_pofol_BG.jpg); }
+    .card1 { background-image: url(./images/BG/bg_hogwarts.jpg);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 120px;
+            color: rgb(0, 3, 24);
+            box-shadow: 0 4px 12px rgba(0,0,0,1);
+    }
+    .card2 { background: rgb(0,0,0) url(./images/Netflix_2015_logo.svg) no-repeat center center/100px; 
+      font-family: Arial, Helvetica, sans-serif
+      ;}
+    .card3 { background: rgb(0, 3, 24) url(./images/공사중.png) no-repeat center center/contain; 
+      font-family: Arial, Helvetica, sans-serif;}
+
+    .card1:hover{
+      transform: translateX(0px) scale(1.05);
+    }
+    .card2:hover{
+      transform: translateX(280px) scale(0.8);
+    }
+    .card3:hover {
+      transform: translateX(-280px) scale(0.8);
+    }
 
     .arrow {
       position: absolute;
@@ -157,7 +175,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 2px;
-      cursor: pointer;
+      cursor: none ;
       background-color: rgba(125, 125, 125, 0.3);
       box-shadow: 0 4px 6px rgba(0,0,0,1);
       z-index: 3;
@@ -193,9 +211,9 @@
 
   <div class="carousel-wrapper">
     <div class="carousel">
-      <div class="card card1">1</div>
-      <div class="card card2">2</div>
-      <div class="card card3">3</div>
+      <div class="card card1">곁</div>
+      <div class="card card2"></div>
+      <div class="card card3">COMING SOON</div>
     </div>
     <div class="arrow prev">◀</div>
     <div class="arrow next">▶</div>
