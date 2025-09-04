@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>넷플릭스 대한민국 - Netflix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg-dark:#000;
+            --text:#fff;
+            --muted:#b3b3b3;
+            --brand:#e50914;
+            --panel:#222;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Noto Sans KR',system-ui,Arial,sans-serif;background:#000;color:#fff}
+        a{color:inherit;text-decoration:none}
+
+        /* Header */
+        .header{position:fixed;top:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:10;background:linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,0));transition:background .3s ease, box-shadow .3s ease}
+        .header.scrolled{background:rgba(0,0,0,.85);box-shadow:0 2px 20px rgba(0,0,0,.5)}
+        .logo{font-weight:900;color:var(--brand);font-size:28px;letter-spacing:1px}
+        .actions{display:flex;gap:12px;align-items:center}
+        .btn{background:var(--brand);border:none;color:#fff;padding:8px 16px;border-radius:4px;font-weight:700;cursor:pointer}
+        .btn:active{transform:translateY(1px)}
+        .select{background:rgba(0,0,0,.6);border:1px solid #666;color:#fff;border-radius:4px;padding:8px 28px 8px 36px;position:relative}
+
+        /* Hero */
+        .hero{position:relative;min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 40px;background:#000;overflow:hidden}
+        .hero::before{content:"";position:absolute;inset:0;background:url('images/BG/web_pofol_BG4.jpg') center/cover no-repeat;opacity:.38;}
+        .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(0,0,0,.1), rgba(0,0,0,.9));}
+        .hero-inner{position:relative;max-width:980px;z-index:1}
+        .hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:16px}
+        .hero h2{font-size:clamp(18px,2.5vw,26px);font-weight:400;margin-bottom:24px}
+        .hero p{font-size:clamp(16px,2vw,20px);margin-bottom:16px}
+        .email-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+        .email-form input{min-width:280px;max-width:480px;width:60vw;padding:16px;border-radius:4px;border:1px solid #666;background:rgba(0,0,0,.6);color:#fff}
+        .email-form input:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
+        .email-form button{padding:16px 24px;font-size:18px}
+        .hero-badge{display:inline-block;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);padding:6px 12px;border-radius:999px;font-size:14px;margin-bottom:14px}
+        .hero-cta{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px;color:#fff}
+        .hero-cta a{color:#58a6ff;text-decoration:underline}
+        
+        /* Trending Row */
+        .trending{border-top:8px solid #222;background:#000;padding:24px 0 8px}
+        .row-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+        .row-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .row-title{font-size:20px;font-weight:700}
+        .row{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(140px,20vw,200px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
+        .card{position:relative;height:clamp(210px,28vw,300px);border-radius:6px;background:linear-gradient(180deg,#1a1a1a,#0b0b0b);scroll-snap-align:start;display:flex;align-items:flex-end;justify-content:flex-start;padding:8px;box-shadow:0 6px 16px rgba(0,0,0,.4);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+        .card::before{content:attr(data-rank);position:absolute;top:6px;left:6px;font-weight:900;font-size:28px;color:rgba(255,255,255,.25)}
+        .card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 12px 28px rgba(0,0,0,.6)}
+        .card .label{font-size:14px;color:#ddd;background:rgba(0,0,0,.5);padding:4px 6px;border-radius:3px}
+        .row::-webkit-scrollbar{height:8px}
+        .row::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
+
+        /* Feature sections */
+        .section{border-top:8px solid #222;background:#000}
+        .panel{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding:64px 24px}
+        .panel h3{font-size:clamp(24px,3.5vw,40px);font-weight:900;margin-bottom:12px}
+        .panel p{font-size:clamp(16px,2vw,20px);color:#ddd}
+        .media{background:#111;border-radius:8px;aspect-ratio:16/9}
+
+        @media(min-width:900px){
+            .panel{grid-template-columns:1.1fr .9fr}
+            .panel.reverse{grid-template-columns:.9fr 1.1fr}
+        }
+
+        /* FAQ */
+        .faq{border-top:8px solid #222;background:#000;padding:64px 24px}
+        .faq-inner{max-width:900px;margin:0 auto}
+        .faq h3{font-size:clamp(24px,3.5vw,40px);font-weight:900;margin-bottom:24px;text-align:center}
+        .qa{background:#2d2d2d;margin-bottom:8px;border:1px solid #2d2d2d}
+        .qa button{width:100%;text-align:left;background:#2d2d2d;color:#fff;border:none;padding:24px;font-size:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+        .qa button span{transition:transform .25s ease}
+        .qa.open button span{transform:rotate(45deg)}
+        .qa .answer{max-height:0;overflow:hidden;transition:max-height .4s ease}
+        .qa.open .answer{max-height:420px}
+        .qa .answer p{padding:0 24px 24px;color:#ddd}
+
+        /* Footer */
+        .footer{border-top:8px solid #222;background:#000;color:#b3b3b3}
+        .footer-inner{max-width:1200px;margin:0 auto;padding:40px 24px}
+        .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+        .grid a{color:#b3b3b3;font-size:14px}
+        @media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+        /* Animations */
+        .fade{opacity:0;transform:translateY(20px);transition:all .6s ease}
+        .fade.visible{opacity:1;transform:none}
+
+        @media(max-width:600px){
+            .header{height:64px}
+            .actions .select{display:none}
+            .email-form input{min-width:240px;width:100%}
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">NETFLIX</div>
+        <div class="actions">
+            <select class="select" aria-label="언어 선택">
+                <option>한국어</option>
+                <option>English</option>
+            </select>
+            <button class="btn">로그인</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner fade">
+            <div class="hero-badge">$7.99이면 만날 수 있는 넷플릭스</div>
+            <h1>영화, 시리즈 등을 무제한으로</h1>
+            <h2>$7.99으로 시작하세요. 멤버십은 언제든지 해지 가능합니다.</h2>
+            <p>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</p>
+            <form class="email-form" onsubmit="event.preventDefault();alert('가입 흐름으로 이동 (데모)');">
+                <input type="email" placeholder="이메일 주소" required>
+                <button class="btn" type="submit">시작하기</button>
+            </form>
+            <div class="hero-cta"><span>가장 경제적인 광고형 멤버십을 이용해 보세요.</span> <a href="#">자세히 알아보기</a></div>
+        </div>
+    </section>
+
+    <section class="trending">
+        <div class="row-inner">
+            <div class="row-header">
+                <div class="row-title">지금 뜨는 콘텐츠</div>
+            </div>
+            <div class="row">
+                <div class="card" data-rank="1"><div class="label">케이팝 데몬 헌터스</div></div>
+                <div class="card" data-rank="2"><div class="label">애마</div></div>
+                <div class="card" data-rank="3"><div class="label">트리거</div></div>
+                <div class="card" data-rank="4"><div class="label">폭군의 셰프</div></div>
+                <div class="card" data-rank="5"><div class="label">나는 생존자다</div></div>
+                <div class="card" data-rank="6"><div class="label">고백의 역사</div></div>
+                <div class="card" data-rank="7"><div class="label">폭싹 속았수다</div></div>
+                <div class="card" data-rank="8"><div class="label">에스콰이어</div></div>
+                <div class="card" data-rank="9"><div class="label">귀멸의 칼날</div></div>
+                <div class="card" data-rank="10"><div class="label">거룩한 밤</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="panel fade">
+            <div>
+                <h3>TV로 즐기세요</h3>
+                <p>스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어 등 다양한 디바이스에서 시청하세요.</p>
+            </div>
+            <div class="media"></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="panel reverse fade">
+            <div class="media"></div>
+            <div>
+                <h3>즐겨 보는 콘텐츠를 저장해 오프라인으로 시청하세요</h3>
+                <p>간편하게 저장하고 빈틈없이 즐겨보세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="panel fade">
+            <div>
+                <h3>다양한 디바이스로 시청하세요</h3>
+                <p>각종 영화와 시리즈를 스마트폰, 태블릿, 노트북, TV에서 무제한으로 스트리밍하세요.</p>
+            </div>
+            <div class="media"></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="panel reverse fade">
+            <div class="media"></div>
+            <div>
+                <h3>어린이 전용 프로필을 만들어 보세요</h3>
+                <p>자기만의 공간에서 좋아하는 캐릭터와 즐기는 신나는 모험. 넷플릭스 회원이라면 무료입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="faq-inner">
+            <h3>자주 묻는 질문</h3>
+            <div class="qa fade">
+                <button type="button">넷플릭스에서 어떤 콘텐츠를 시청할 수 있나요?<span>＋</span></button>
+                <div class="answer"><p>장편 영화, 다큐멘터리, 시리즈, 애니메이션, 각종 상을 수상한 넷플릭스 오리지널 등 수많은 콘텐츠를 확보하고 있습니다.</p></div>
+            </div>
+            <div class="qa fade">
+                <button type="button">넷플릭스란 무엇인가요?<span>＋</span></button>
+                <div class="answer"><p>각종 수상 경력에 빛나는 다양한 콘텐츠를 수천 종의 디바이스에서 시청할 수 있는 스트리밍 서비스입니다.</p></div>
+            </div>
+            <div class="qa fade">
+                <button type="button">넷플릭스 요금은 얼마인가요?<span>＋</span></button>
+                <div class="answer"><p>멤버십 요금은 월 $7.99부터 $24.99까지 다양합니다. 추가 비용이나 약정이 없습니다.</p></div>
+            </div>
+            <div class="qa fade">
+                <button type="button">어디에서 시청할 수 있나요?<span>＋</span></button>
+                <div class="answer"><p>PC, 스마트 TV, 스마트폰, 태블릿 등 다양한 디바이스에서 언제든 시청할 수 있습니다.</p></div>
+            </div>
+            <div class="qa fade">
+                <button type="button">멤버십을 해지하려면 어떻게 하나요?<span>＋</span></button>
+                <div class="answer"><p>온라인에서 클릭 두 번이면 해지가 완료됩니다. 해지 수수료는 없습니다.</p></div>
+            </div>
+            <div class="qa fade">
+                <button type="button">아이들이 넷플릭스를 봐도 좋을까요?<span>＋</span></button>
+                <div class="answer"><p>키즈 프로필과 PIN 기반 자녀 보호 기능을 제공하여 자녀의 시청 환경을 관리할 수 있습니다.</p></div>
+            </div>
+            <div style="text-align:center;margin-top:24px">
+                <p style="margin-bottom:12px">시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</p>
+                <form class="email-form" onsubmit="event.preventDefault();alert('가입 흐름으로 이동 (데모)');">
+                    <input type="email" placeholder="이메일 주소" required>
+                    <button class="btn" type="submit">시작하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p style="margin-bottom:16px">질문이 있으신가요? 문의 전화: 1-866-952-4456</p>
+            <div class="grid" style="margin-bottom:24px">
+                <a href="#">자주 묻는 질문</a>
+                <a href="#">고객 센터</a>
+                <a href="#">계정</a>
+                <a href="#">미디어 센터</a>
+                <a href="#">투자 정보(IR)</a>
+                <a href="#">입사 정보</a>
+                <a href="#">넷플릭스 지원 디바이스</a>
+                <a href="#">이용 약관</a>
+                <a href="#">개인정보 처리방침</a>
+                <a href="#">쿠키 설정</a>
+                <a href="#">회사 정보</a>
+                <a href="#">문의하기</a>
+                <a href="#">속도 테스트</a>
+                <a href="#">법적 고지</a>
+                <a href="#">오직 넷플릭스에서</a>
+            </div>
+            <select class="select" aria-label="언어 선택" style="margin-bottom:24px">
+                <option>한국어</option>
+                <option>English</option>
+            </select>
+            <p style="font-size:12px">넷플릭스 대한민국</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll behavior
+        const header = document.querySelector('.header');
+        const setHeader = ()=>{
+            if(window.scrollY>10){ header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
+        };
+        setHeader();
+        window.addEventListener('scroll', setHeader);
+
+        // Fade-in on scroll
+        const io = new IntersectionObserver((entries)=>{
+            entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+        }, {threshold:.2});
+        document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+        // FAQ accordion
+        document.querySelectorAll('.qa button').forEach(btn=>{
+            btn.setAttribute('aria-expanded','false');
+            btn.addEventListener('click', ()=>{
+                const qa = btn.parentElement;
+                const open = qa.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(open));
+                const icon = btn.querySelector('span');
+                if(icon){ icon.textContent = open ? '＋' : '＋'; }
+            });
+        });
+    </script>
+</body>
+</html>

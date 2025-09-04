@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다양한 애니메이션 모음</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 네비게이션 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            z-index: 1000;
+            transform: translatY(-100%);
+            transition: transform 0.8s ease;
+        }
+
+        .navbar.show {
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1.2s ease;
+        }
+
+        .hero-content.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #00d4ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .hero-content.animate .cta-button {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.5s;
+        }
+
+        .cta-button:hover {
+            background: #0099cc;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 애니메이션 섹션들 */
+        .section {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        /* 슬라이드 인 애니메이션 */
+        .slide-in-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .slide-in-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-card:nth-child(even) {
+            transform: translateX(100px);
+        }
+
+        .slide-in-card.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .slide-in-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 슬라이드 업 애니메이션 */
+        .slide-up-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .slide-up-item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-up-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up-item h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* 페이드 인 애니메이션 */
+        .fade-in-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .fade-in-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .fade-in-item.animate {
+            opacity: 1;
+        }
+
+        .fade-in-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* 카운팅 애니메이션 */
+        .counting-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .counting-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .counting-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .counting-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .counting-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .counting-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 프로그레스 바 */
+        .progress-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .progress-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .progress-item {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .progress-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 2s ease;
+            border-radius: 10px;
+        }
+
+        /* 스크롤 프로그레스 바 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 스크롤 프로그레스 바 -->
+    <div class="scroll-progress"></div>
+
+    <!-- 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Animation Demo</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#animations">Animations</a></li>
+                <li><a href="#counting">Counting</a></li>
+                <li><a href="#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>다양한 애니메이션</h1>
+            <p>스크롤하면서 다양한 애니메이션 효과를 확인해보세요</p>
+            <a href="#animations" class="cta-button">시작하기</a>
+        </div>
+    </section>
+
+    <!-- 슬라이드 인 애니메이션 -->
+    <section class="section" id="animations">
+        <h2 class="section-title">슬라이드 인 애니메이션</h2>
+        <div class="slide-in-container">
+            <div class="slide-in-card">
+                <h3>왼쪽에서 슬라이드</h3>
+                <p>화면 밖에서 안으로 들어오는 애니메이션입니다. 부드럽게 나타나는 효과를 확인해보세요.</p>
+            </div>
+            <div class="slide-in-card">
+                <h3>오른쪽에서 슬라이드</h3>
+                <p>반대 방향에서 슬라이드되는 애니메이션입니다. 다양한 방향의 움직임을 경험해보세요.</p>
+            </div>
+            <div class="slide-in-card">
+                <h3>좌우 동시 슬라이드</h3>
+                <p>여러 요소가 동시에 다른 방향에서 슬라이드되어 나타나는 효과입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 슬라이드 업 애니메이션 -->
+    <section class="section">
+        <h2 class="section-title">슬라이드 업 애니메이션</h2>
+        <div class="slide-up-container">
+            <div class="slide-up-item">
+                <h3>아래에서 위로</h3>
+                <p>요소들이 아래에서 위로 슬라이드되며 나타납니다.</p>
+            </div>
+            <div class="slide-up-item">
+                <h3>순차적 애니메이션</h3>
+                <p>각 요소가 순서대로 애니메이션을 실행합니다.</p>
+            </div>
+            <div class="slide-up-item">
+                <h3>부드러운 전환</h3>
+                <p>CSS transition을 활용한 부드러운 애니메이션 효과입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 페이드 인 애니메이션 -->
+    <section class="section">
+        <h2 class="section-title">페이드 인 애니메이션</h2>
+        <div class="fade-in-container">
+            <div class="fade-in-item">
+                <h3>점진적 나타남</h3>
+                <p>투명도가 점진적으로 증가하며 요소가 나타납니다.</p>
+            </div>
+            <div class="fade-in-item">
+                <h3>자연스러운 효과</h3>
+                <p>자연스럽고 부드러운 페이드 인 효과를 제공합니다.</p>
+            </div>
+            <div class="fade-in-item">
+                <h3>사용자 경험</h3>
+                <p>사용자의 주의를 끌고 콘텐츠를 효과적으로 전달합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 카운팅 애니메이션 -->
+    <section class="counting-section" id="counting">
+        <h2 class="section-title">카운팅 애니메이션</h2>
+        <div class="counting-container">
+            <div class="counting-item">
+                <div class="counting-number" data-target="1000">0</div>
+                <div class="counting-label">프로젝트 완료</div>
+            </div>
+            <div class="counting-item">
+                <div class="counting-number" data-target="500">0</div>
+                <div class="counting-label">고객 만족</div>
+            </div>
+            <div class="counting-item">
+                <div class="counting-number" data-target="50">0</div>
+                <div class="counting-label">팀 멤버</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 프로그레스 바 -->
+    <section class="progress-section" id="progress">
+        <h2 class="section-title">프로그레스 바 애니메이션</h2>
+        <div class="progress-container">
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>HTML/CSS</span>
+                    <span>90%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="90"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>JavaScript</span>
+                    <span>85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="85"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>React</span>
+                    <span>75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="75"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Node.js</span>
+                    <span>80%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-width="80"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 스크롤 애니메이션 함수
+        function checkScroll() {
+            const sections = document.querySelectorAll('.section, .hero, .counting-section, .progress-section');
+            const scrollProgress = document.querySelector('.scroll-progress');
+            
+            // 스크롤 진행률 계산
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+
+            // 네비게이션 표시
+            if (scrollTop > 100) {
+                document.querySelector('.navbar').classList.add('show');
+            } else {
+                document.querySelector('.navbar').classList.remove('show');
+            }
+
+            // 각 섹션 애니메이션 체크
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const windowHeight = window.innerHeight;
+                
+                if (scrollTop + windowHeight > sectionTop + 100) {
+                    section.classList.add('animate');
+                    
+                    // 카운팅 애니메이션 실행
+                    if (section.classList.contains('counting-section')) {
+                        animateCounters();
+                    }
+                    
+                    // 프로그레스 바 애니메이션 실행
+                    if (section.classList.contains('progress-section')) {
+                        animateProgressBars();
+                    }
+                }
+            });
+        }
+
+        // 카운터 애니메이션
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counting-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2초
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // 프로그레스 바 애니메이션
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        }
+
+        // 스크롤 이벤트 리스너
+        window.addEventListener('scroll', checkScroll);
+        
+        // 페이지 로드 시 초기 체크
+        window.addEventListener('load', () => {
+            checkScroll();
+            
+            // 히어로 섹션 자동 애니메이션
+            setTimeout(() => {
+                document.querySelector('.hero-content').classList.add('animate');
+            }, 500);
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
