@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 홈페이지</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-      font-family:'HarryPotter';
-      src: url('./fonts/-na_lover-webfont.woff') format('woff2'),
-           url('./fonts/-na_lover-webfont.woff2') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
+    /* @font-face { */
+
+/* 전체 기본 폰트 교체 */
+html, body {
+      font-family:'Inter', sans-serif;
+      line-height:1.7;
+      color:#111;
+      background:#fff;
+      overflow-x:hidden;}
+
     @keyframes fogMove {
       0%   { background-position: 0 0; }
       100% { background-position: -1000px 0; }
@@ -31,7 +35,7 @@
     }
 
     body {
-      font-family: 'HarryPotter', serif;
+      /* font-family: 'HarryPotter', serif; */
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
                   url(./images/BG/bg_hogwarts.jpg) no-repeat center/cover fixed;
       display: flex; flex-direction: column; align-items: center;
@@ -41,11 +45,11 @@
     nav{
       max-width:1290px; width:100%;
       background:rgba(15,15,20,.95);
-      border-radius:4px; padding:22px 30px 15px;
+      border-radius:4px; padding:18px 30px;
       display:flex; justify-content:space-between; align-items:center;
       margin-bottom:100px; box-shadow:0 4px 12px rgba(74,74,74,.15);
     }
-    nav a{ text-decoration:none; color:silver; font-weight:600; margin:0 10px; transition:.4s; }
+    nav a{line-height: 1; text-decoration:none; color:silver; font-weight:600; margin:0 10px; transition:.4s; }
     nav a:hover{ color:gold; }
 
     .carousel-wrapper{ position:relative; width:900px; height:400px; }
@@ -78,10 +82,13 @@
     .card1{ background: url("./images/토트넘\ 경기장\ 사진.png") no-repeat center / cover }
     .card2{ background:#000 url(./images/Netflix_2015_logo.svg) no-repeat center/220px; font-family:Arial, Helvetica, sans-serif; }
     .card3{ background: url(./images/icon/곁\ 로고.png) no-repeat center/ 160px, url("./images/BG/한지\ 배경.png") no-repeat center }
-
+    .card1{
+      font-size: 50px;
+      color: rgba(255, 255, 255, 0.6);
+    }
     .arrow{
       position:absolute; top:50%; transform:translateY(-50%);
-      width:50px; height:80px; padding-top:10px;
+      width:50px; height:80px; 
       display:flex; align-items:center; justify-content:center;
       border-radius:2px; background-color:rgba(125,125,125,.3);
       box-shadow:0 8px 16px rgba(0,0,0,1);
@@ -99,13 +106,13 @@
   color: #6b6b6b;                   /* 호버 시 색 변경 */
   background-color: rgba(92, 92, 92, 0.5); } /* 원하면 배경도 변화 */
     
-    html, body {
+    /* html, body {
   cursor: url("./images/wandwhite_resized_104.png") 10 10, auto !important;
 }
 a, button, .arrow, [role="button"] {
   cursor: url("./images/wandwhite_resized_104.png") 9 9, pointer !important;
 }
-input, textarea, [contenteditable="true"] { cursor: text !important; }
+input, textarea, [contenteditable="true"] { cursor: text !important; } */
   </style>
 </head>
 <body>
@@ -115,10 +122,11 @@ input, textarea, [contenteditable="true"] { cursor: text !important; }
   </audio>
 
   <nav>
-    <a href="#">Home</a>
+    <a href="#"></a>
     <div>
-      <a href="#">About me</a>
-      <a href="#">Product</a>
+      <a href="#">About Me</a>
+      <a href="#">Netflix</a>
+      <a href="#">Portfolio</a>
     </div>
   </nav>
 

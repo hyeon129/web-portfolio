@@ -1,0 +1,483 @@
+body{
+    background-color: black;
+}
+.header-container{
+    max-width: 1240px;
+    width: 100%;
+    height: 88px; /* ← 확실한 높이 지정 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 세로 가운데 정렬 */
+    margin: 0 auto;
+    padding: 0 7px;
+}
+.netflix-logo{
+    width: 148px;
+    height: 40px;
+}
+.header-group{
+    color: white;
+    padding: 0 6px; /*여기에 컬러와 폰트 웨이트 안먹히는 이유*/ 
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 12px;
+}
+.header-group select{
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    background: rgba(22, 22, 22, 0.7); /*크기바꾸는법과 색 변경 방법*/
+    width: 124px;
+    height: 32px;
+    border-radius: 4px;
+    /*gap과 패딩 입히는 방법*/
+}
+.header-group button{
+    background-color: red;
+    font-size: 0.9rem;
+    font-weight: 400;
+    width: 70px;
+    height: 32px;
+    border-radius: 4px;
+}
+.main-container{
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,1) 0%,   /* 위쪽 딤 */
+      rgba(0,0,0,0) 60%,   /* 중앙은 투명 */
+      rgba(0,0,0,0) 80%,
+      rgba(0,0,0,0.1) 100% /* 아래쪽 딤 */
+    ), linear-gradient(to top,
+    rgba(0,0,0,1) 0%,   /* 위쪽 딤 */
+    rgba(0,0,0,0) 60%,   /* 중앙은 투명 */
+    rgba(0,0,0,0) 80%,
+    rgba(0,0,0,0.1) 100% /* 아래쪽 딤 */
+  ),url(../images/bg_hogwarts.jpg) no-repeat center center/cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 1520px;
+    width: 100%;
+    height: 562px;
+    /* border: 1px solid red; */
+    padding: 120px 0 0 0;
+    margin-bottom: 130px;
+}
+.box1{
+    width: 100%;
+    color: white;
+}
+.box1 h1{
+    font-size: 56px;    
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0 0 16px;
+}
+.box1 h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 32px;
+}
+.box1 h3{
+    font-size: 16px;
+}
+form{ 
+    /* 버튼들 가운데 정렬방법 */
+    margin-top: 16px;
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center;     /* 세로 가운데 정렬 (높이 필요) */
+    /* position: relative; */
+    
+}
+form input{
+    color: white;
+    background-color: rgba(255, 255, 255, 0.05);
+    width: 407px;
+    height: 56px;
+    border: 1px solid white;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 550;
+    padding: 0 16px;
+    margin: 0 8px 0 0;
+}
+form input::placeholder{
+    color: rgba(255, 255, 255, 0.5);
+}
+form button{
+    width: 172px;
+    height: 56px;
+    background-color: red;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+}
+button img{ /*화살표 정렬 여쭤보기*/
+    width: 24px;
+    height: 24px;
+    
+    /* translate: 0 -50%; */
+}
+
+
+.speci-box{
+            max-width: 1140px;
+            width: 100%;
+            height: 83px;
+            border-radius: 16px;
+            background: linear-gradient(90deg,rgb(38, 23, 51), rgb(21, 26, 63));
+            color: white;
+            margin: 50px auto;
+            padding: 16px 32px;
+            position: relative;
+            transition: 0.8s;
+        }
+        .speci-box  h1{
+            font-size: 18px;
+         
+        }
+        .speci-box a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: rgb(65, 67, 68);
+            width: 138px;
+            height: 40px;
+            border-radius: 4px;
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            translate: 0 -50%;
+            transition: 0.3s;
+            
+        }
+        .speci-box:hover{
+            scale: 1.02;
+            transform:translate(0,-1px);
+            background: linear-gradient(90deg, rgb(71, 37, 102), rgb(22, 29, 82));
+        }
+        .speci-box a:hover{
+            background-color: rgb(59, 60, 98);
+        }
+        
+        h4,h5,h6{
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            padding-left: 150px;
+        }
+   
+   
+     .now-container{ /*얘네를 1224부터 시작하게 하는 방법*/
+            position: relative;
+            max-width: 1224px;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 64px;
+            /* border: 1px solid red; */
+            /* display: flex; */
+            /* justify-content: space-between; */
+            gap: 12px;
+            overflow: visible;
+        }
+        .now-viewport{
+            overflow: hidden;
+        }
+        .now-contents{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 252px;
+            /* position: relative; */
+            border-radius: 0.7rem;
+            gap: 12px;
+            will-change: transform;
+            transform: translateX(0);
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .now-content{
+            position: relative;
+            width: 210px;
+            height: 270px;
+            flex: 0 0 210px; /* flex 아이템이 줄지 않도록 설정 */
+            border-radius: 0.7rem;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .now-content:hover{
+            transform: scale(1.1);
+            z-index: 5;
+        }
+        .now-contents img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지 꽉 차게, 넘치는 부분은 잘림 */
+            border-radius: 0.7rem;
+            position: absolute;
+            left: 20px;
+            display: block;
+        }
+        .rank {
+            font-size: 100px;          
+            font-weight: 900;          
+            color: black;               
+            -webkit-text-stroke: 3px white; 
+            font-family: 'Arial Black', sans-serif; 
+            position: absolute;
+            bottom: 0;
+            translate: -3% 3%;
+            z-index: 100;
+        }
+        .prev, .next{
+            width: 24px !important;
+            height: 120px !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            background-color: #2d2d2d !important;
+            font-size: 12px !important;
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 10 !important;
+            border-radius: 5px !important;
+            border: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .prev{
+            left: -28px !important;
+        }
+        .next{
+            right: -28px !important;
+        }
+
+
+    .reason-container{
+        width: 1224px;
+        margin: 0 auto;
+        margin-bottom: 64px;
+        /* border: 1px solid red; */
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        }
+        .reason-content1{
+            width: 294px;
+            height: 331px;
+            /* border: 1px solid red; */
+            border-radius:1rem ;
+            padding: 24px 16px 128px;
+            background: url('../images/icons/tv.svg') no-repeat right 20px bottom 20px, linear-gradient(-45deg, rgb(33, 14, 23), rgb(25, 34, 70));
+        }
+        .reason-content2{
+            width: 294px;
+            height: 331px;
+            /* border: 1px solid red; */
+            border-radius:1rem ;
+            padding: 24px 16px 128px;
+            background: url('../images/icons/download.svg') no-repeat right 20px bottom 20px, linear-gradient(-45deg, rgb(33, 14, 23), rgb(25, 34, 70));
+        }
+        .reason-content3{
+            width: 294px;
+            height: 331px;
+            /* border: 1px solid red; */
+            border-radius:1rem ;
+            padding: 24px 16px 128px;
+            background: url('../images/icons/scope.svg') no-repeat right 20px bottom 20px, linear-gradient(-45deg, rgb(33, 14, 23), rgb(25, 34, 70));
+        }
+        .reason-content4{
+            width: 294px;
+            height: 331px;
+            /* border: 1px solid red; */
+            border-radius:1rem ;
+            padding: 24px 16px 128px;
+            background: url('../images/icons/ghost.svg') no-repeat right 20px bottom 20px, linear-gradient(-45deg, rgb(33, 14, 23), rgb(25, 34, 70));
+        }
+        .reason-container h1{
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding-bottom: 20px;
+        }
+        .reason-container p{
+            font-size: 1rem;
+            color: #ffffffb3;
+        }
+    /* .faq-container{
+        position: relative;
+        border: 1px solid red;
+        max-width: 1224px;
+        width: 100%;
+        color: white;
+        margin: 20px auto;
+    }
+        .detail{
+            width: 100%;
+            border: 1px solid red;
+            background-color: rgb(68, 68, 68);
+            font-size: 24px;
+            max-width: 1224px;
+            padding: 24px;
+            margin-bottom: 10px;
+    }
+        .faq-container p a{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            /* height: auto; */
+            /* border-top: 1px solid black;
+            background-color: rgb(68, 68, 68);
+            font-size: 24px;
+            padding: 24px;
+    }   
+        .detail summary::after{
+            content: "";
+            position: absolute;
+            right: 20px;
+            background: url('../images/icons/plus-solid-full-wt.svg') no-repeat center center/contain;
+            top: 50%; 
+            translate: 0 -50%;
+            width: 24px;
+    } */ 
+     .faq {
+  max-width: 1224px;
+  margin: 20px auto;
+  color: white;
+  font-size: 1.6rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid #333;
+  width: 100%;
+  margin-bottom: 8px;
+  /* height: 84px; */
+}
+
+.faq-question {
+  width: 100%;
+  padding: 28px;
+  background: #303030;
+  color: white;
+  font-size: 1.3rem;
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  /* position: relative; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question .icon {
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background: #303030;
+  padding: 0 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: max-height 0.1s ease, padding 0.3s ease;
+}
+
+/* 열렸을 때 */
+.faq-item.active .faq-answer {
+  max-height: 500px;  /* 충분히 크게 설정 */
+  padding: 28px;
+}
+
+.faq-item.active .faq-question .icon {
+  transform: rotate(45deg); /* + → × 로 변환 */
+}
+
+
+.footer-txt{
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: center;
+    margin-top: 48px;
+}
+form button{
+    color: white;
+}
+form{
+    margin-bottom: 48px;
+}
+
+
+
+.footer {
+  max-width: 1224px;
+  margin: 40px auto;
+  padding: 5px;
+  color: #999;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #999;
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-top {
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  list-style: none;
+  padding: 0;
+  margin: 40px 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-lang {
+  margin: 20px 0;
+}
+
+.footer-lang select {
+  background: black;
+  border: 1px solid #333;
+  padding: 8px 12px;
+  color: #999;
+  border-radius: 4px;
+}
+
+.footer-info {
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+.footer-note {
+  margin-top: 12px;
+  font-size: 12px;
+}
