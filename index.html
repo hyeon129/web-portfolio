@@ -12,195 +12,108 @@
       font-weight: normal;
       font-style: normal;
     }
-@keyframes fogMove {
-  0%   { background-position: 0 0; }
-  100% { background-position: -1000px 0; }
-}
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
+    @keyframes fogMove {
+      0%   { background-position: 0 0; }
+      100% { background-position: -1000px 0; }
     }
-  html, body {
-  height: 100%; /* 전체 높이 채우기 */
-  margin: 0;
-  padding: 0;
-  }
-    
-  body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 200%;
-  height: 100%;
-  background: url("./images/fog2.png") repeat-x;
-  background-size: auto 100%;
-  opacity: 0.3; /* 안개 투명도 */
-  animation: fogMove 60s linear infinite;
-  z-index: 1; /* nav, 카드보다 뒤에 보이도록 조정 */
-  pointer-events: none; /* 클릭 막히지 않게 */
-}
-  
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+
+    body::before {
+      content: "";
+      position: fixed; top: 0; left: 0;
+      width: 200%; height: 100%;
+      background: url("./images/fog2.png") repeat-x;
+      background-size: auto 100%;
+      opacity: 0.3; animation: fogMove 60s linear infinite;
+      z-index: 1; pointer-events: none;
+    }
+
     body {
       font-family: 'HarryPotter', serif;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                  url(./images/BG/bg_hogwarts.jpg) no-repeat center center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      padding: 30px 0;
-      box-sizing: border-box;
-      background-size: cover; /* 화면에 꽉 차도록 */
-      background-attachment: fixed; /* 스크롤해도 배경 고정 */
-    }
-  
-    nav {
-      max-width: 1290px;
-      width: 100%;
-      background: rgba(15, 15, 20, 0.95);
-      border-radius: 4px;
-      padding: 0 30px;
-      padding-top: 22px;
-      padding-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 100px;
-      box-shadow: 0 4px 12px rgba(74, 74, 74, 0.15);
-    }
-    /* nav:hover {
-    background: rgba(218,165,32,0.15);
-    transition: 0.4s;
-    } */
-    nav a {
-      text-decoration: none;
-      color: silver;
-      font-weight: 600;
-      margin: 0 10px;
-      transition: 0.4s;
-    }
-    nav a:hover {
-    color: gold;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url(./images/BG/bg_hogwarts.jpg) no-repeat center/cover fixed;
+      display: flex; flex-direction: column; align-items: center;
+      margin: 0; padding: 30px 0;
     }
 
-    .carousel-wrapper {
-      position: relative;
-      width: 900px;
-      height: 400px;
+    nav{
+      max-width:1290px; width:100%;
+      background:rgba(15,15,20,.95);
+      border-radius:4px; padding:22px 30px 15px;
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:100px; box-shadow:0 4px 12px rgba(74,74,74,.15);
+    }
+    nav a{ text-decoration:none; color:silver; font-weight:600; margin:0 10px; transition:.4s; }
+    nav a:hover{ color:gold; }
+
+    .carousel-wrapper{ position:relative; width:900px; height:400px; }
+    .carousel{
+      position:relative; width:900px; height:400px;
+      display:flex; justify-content:center; align-items:center;
     }
 
-    .carousel {
-      position: relative;
-      width: 900px;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .card{
+      display:none; position:absolute; width:600px; height:350px; border-radius:3px;
+      box-shadow:0 8px 16px rgba(0,0,0,.2);
+      justify-content:center; align-items:center; font-size:22px; font-weight:bold; color:#fff;
+      background-size:cover; background-position:center; opacity:0;
+      transition: transform .9s ease, opacity .9s ease;
+      will-change: transform, opacity;           /* 성능 안정화 */
+      backface-visibility: hidden;
     }
+    .card.left, .card.center, .card.right{ display:flex; opacity:1; }
 
-    .card {
-      display: none;
-      position: absolute;
-      width: 600px;
-      height: 350px;
-      border-radius: 3px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-      font-weight: bold;
-      color: #fff;
-      background-size: cover;
-      background-position: center;
-        opacity: 0;
-      transition: transform 0.9s ease, opacity 0.9s ease;
-    }
+    .card.left   { transform:translateX(-280px) scale(.75); z-index:1; }
+    .card.center { transform:translateX(0)      scale(1);   z-index:2; box-shadow:0 8px 16px rgba(0,0,0,1); }
+    .card.right  { transform:translateX(280px)  scale(.75); z-index:1; }
 
-    .card.left,
-    .card.center,
-    .card.right {
-      display: flex;
-      opacity: 1;
-    }
+    /* ✅ 문제 원인: card1/2/3:hover가 상태를 덮어써서 꼬임 발생
+       → 상태별 hover로 교체 (위치 유지 + 약간 확대) */
+    .card.center:hover{ transform: translateX(0)      scale(1.05); }
+    .card.left:hover  { transform: translateX(-280px) scale(.80); }
+    .card.right:hover { transform: translateX(280px)  scale(.80); }
 
-    .card.left {
-      transform: translateX(-280px) scale(0.75);
-      z-index: 1;
-    }
+    .card1{ background: url("./images/토트넘\ 경기장\ 사진.png") no-repeat center / cover }
+    .card2{ background:#000 url(./images/Netflix_2015_logo.svg) no-repeat center/220px; font-family:Arial, Helvetica, sans-serif; }
+    .card3{ background: url(./images/icon/곁\ 로고.png) no-repeat center/ 160px, url("./images/BG/한지\ 배경.png") no-repeat center }
 
-    .card.center {
-      transform: translateX(0) scale(1);
-      z-index: 2;
-      box-shadow: 0 8px 16px rgba(0,0,0,1);
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:50px; height:80px; padding-top:10px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:2px; background-color:rgba(125,125,125,.3);
+      box-shadow:0 8px 16px rgba(0,0,0,1);
+      z-index:3; font-size:24px;
+      /* ✅ 커서 다시 보이게 */
+      cursor: pointer;
+      user-select: none;
+      
     }
-
-    .card.right {
-      transform: translateX(280px) scale(0.75);
-      z-index: 1;
-    }
-
-    .card1 { background-image: url(./images/BG/bg_hogwarts.jpg);
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 120px;
-            color: rgb(0, 3, 24);
-            box-shadow: 0 4px 12px rgba(0,0,0,1);
-    }
-    .card2 { background: rgb(0,0,0) url(./images/Netflix_2015_logo.svg) no-repeat center center/100px; 
-      font-family: Arial, Helvetica, sans-serif
-      ;}
-    .card3 { background: rgb(0, 3, 24) url(./images/공사중.png) no-repeat center center/contain; 
-      font-family: Arial, Helvetica, sans-serif;}
-
-    .card1:hover{
-      transform: translateX(0px) scale(1.05);
-    }
-    .card2:hover{
-      transform: translateX(280px) scale(0.8);
-    }
-    .card3:hover {
-      transform: translateX(-280px) scale(0.8);
-    }
-
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 80px;
-      padding-top: 10px;
-      background: #d3dbe4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-      cursor: none ;
-      background-color: rgba(125, 125, 125, 0.3);
-      box-shadow: 0 4px 6px rgba(0,0,0,1);
-      z-index: 3;
-      font-size: 24px;         
-      box-shadow: 0 8px 16px rgba(0,0,0,2);
-    }
-
-    .arrow span {
-      font-size: 24px;
-      color: #1A1A1A;
-    }
-
-    .arrow:hover span {
-      color: #444;
-    }
-
-    .arrow.prev { left: -80px;}
-    .arrow.next { right: -80px; }
+    .arrow span{ font-size:24px; color:#1A1A1A; }
+    .arrow:hover span{ color:#444; }
+    .arrow.prev{ left:-80px; }
+    .arrow.next{ right:-80px; }
+    .arrow:hover {
+  color: #6b6b6b;                   /* 호버 시 색 변경 */
+  background-color: rgba(92, 92, 92, 0.5); } /* 원하면 배경도 변화 */
+    
+    html, body {
+  cursor: url("./images/wandwhite_resized_104.png") 10 10, auto !important;
+}
+a, button, .arrow, [role="button"] {
+  cursor: url("./images/wandwhite_resized_104.png") 9 9, pointer !important;
+}
+input, textarea, [contenteditable="true"] { cursor: text !important; }
   </style>
 </head>
 <body>
   <audio autoplay loop hidden>
-  <source src="./bgm/harry_potter_theme.mp3" type="audio/mpeg">
-  브라우저가 오디오 태그를 지원하지 않습니다.
-</audio>
+    <source src="./bgm/harry_potter_theme.mp3" type="audio/mpeg">
+    브라우저가 오디오 태그를 지원하지 않습니다.
+  </audio>
+
   <nav>
     <a href="#">Home</a>
     <div>
@@ -213,7 +126,7 @@
     <div class="carousel">
       <div class="card card1"></div>
       <div class="card card2"></div>
-      <div class="card card3">COMING SOON</div>
+      <div class="card card3"></div>
     </div>
     <div class="arrow prev">◀</div>
     <div class="arrow next">▶</div>
@@ -221,36 +134,52 @@
 
   <script>
     const cards = document.querySelectorAll('.card');
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
+    const prev  = document.querySelector('.prev');
+    const next  = document.querySelector('.next');
 
     let current = 0;
+    const DURATION = 900; // CSS transition과 동일
 
-    function update() {
+    // ✅ 전환 중 연속 클릭 방지(꼬임 예방)
+    let isAnimating = false;
+    function lockFor(ms){
+      isAnimating = true;
+      setTimeout(()=> isAnimating = false, ms);
+    }
+
+    function update(){
       cards.forEach((card, i) => {
-        card.classList.remove("left", "center", "right");
-        if (i === current) {
-          card.classList.add("center");
-        } else if (i === (current - 1 + cards.length) % cards.length) {
-          card.classList.add("left");
-        } else if (i === (current + 1) % cards.length) {
-          card.classList.add("right");
+        card.classList.remove('left','center','right');
+        if(i === current){
+          card.classList.add('center');
+        }else if(i === (current - 1 + cards.length) % cards.length){
+          card.classList.add('left');
+        }else if(i === (current + 1) % cards.length){
+          card.classList.add('right');
+        }else{
+          // 3장만 보일 때를 대비 (확장 예정 대비)
+          card.style.opacity = 0;
+          card.style.display = 'none';
+          // 필요 시: card.classList.add('hidden') 등으로 관리 가능
         }
       });
     }
 
-    next.addEventListener("click", () => {
+    next.addEventListener('click', () => {
+      if(isAnimating) return;
       current = (current + 1) % cards.length;
       update();
+      lockFor(DURATION);
     });
 
-    prev.addEventListener("click", () => {
+    prev.addEventListener('click', () => {
+      if(isAnimating) return;
       current = (current - 1 + cards.length) % cards.length;
       update();
+      lockFor(DURATION);
     });
 
     update();
-    
   </script>
 </body>
 </html>
